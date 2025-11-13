@@ -1,9 +1,10 @@
 import BpmnModeler from "bpmn-js/lib/Modeler";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSocket } from "../context/socket";
 
 export function useBpmnModeler(id: string) {
   const socket = useSocket();
+  const [userCount, setUserCount] = useState(0);
 
   useEffect(() => {
     const modelerCreated = new BpmnModeler({
@@ -23,8 +24,17 @@ export function useBpmnModeler(id: string) {
       socket.emit("diagram:update", xml);
     };
 
+    const handleUserCount = (count: number) => {
+      setUserCount(count);
+    };
+
+    socket.on("user:count", handleUserCount);
     socket.on("diagram:init", handleDiagramInit);
     socket.on("diagram:update", handleDiagramUpdate);
     modelerCreated.on("commandStack.changed", handleCommandStackChanged);
-  }, [id, socket]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
+
+  return { userCount };
 }

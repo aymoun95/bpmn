@@ -1,7 +1,8 @@
 import React, { createContext } from "react";
 import { io, Socket } from "socket.io-client";
+import { SOCKET_URL } from "../config";
 
-export const socket: Socket = io("ws://localhost:3001", {});
+export const socket: Socket = io(SOCKET_URL, {});
 
 export const SocketContext = createContext<Socket>(socket);
 
