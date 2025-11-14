@@ -15,6 +15,7 @@ app.use(express.json());
 
 let currentDiagramXML: string | null = loadInitialDiagram();
 let activeUsers = 0;
+let editorLockedBy: string | null = null; // userId of the one currently editing
 
 io.on('connection', (socket: Socket) => {
   if (currentDiagramXML) {
@@ -23,6 +24,20 @@ io.on('connection', (socket: Socket) => {
 
   activeUsers = userJoin(activeUsers);
   io.emit('user:count', activeUsers);
+
+  socket.on('editor:lock', () => {
+    if (!editorLockedBy) {
+      editorLockedBy = socket.id;
+      io.emit('editor:locked', { userId: socket.id });
+    }
+  });
+
+  socket.on('editor:unlock', () => {
+    if (editorLockedBy === socket.id) {
+      editorLockedBy = null;
+      io.emit('editor:unlocked');
+    }
+  });
 
   // when a user updates the diagram
   socket.on('diagram:update', (xml) => {
@@ -34,6 +49,11 @@ io.on('connection', (socket: Socket) => {
     activeUsers = userLeave(activeUsers);
     io.emit('user:count', activeUsers);
     console.log('user disconnected', activeUsers);
+
+    if (editorLockedBy === socket.id) {
+      editorLockedBy = null;
+      io.emit('editor:unlocked');
+    }
   });
 });
 
