@@ -55,9 +55,6 @@ backend/    # Node.js/Express/Socket.IO backend
 frontend/   # React + Vite + Tailwind frontend
 ```
 
-- All BPMN assets and initial diagrams are in `frontend/public/` and `backend/assets/`.
-- The main collaborative logic is in `frontend/src/bpmn/` and `backend/src/`.
-
 ## License
 
 MIT
