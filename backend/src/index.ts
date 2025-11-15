@@ -61,10 +61,6 @@ io.on('connection', (socket: Socket) => {
   });
 });
 
-server.listen(config.socketPort, () => {
-  console.log(`Socket server running on port ${config.socketPort}`);
-});
-
-app.listen(config.port, () => {
-  console.log(`Server running on port ${config.port}`);
+server.listen(config.port, () => {
+  console.log(`Server + Socket.IO running on port ${config.port}`);
 });

@@ -1,2 +1,2 @@
-export const SOCKET_URL =
-  import.meta.env.VITE_SOCKET_URL || "ws://localhost:3001";
+export const BACKEND_URL =
+  import.meta.env.VITE_BACKEND_URL || "ws://localhost:3000";
