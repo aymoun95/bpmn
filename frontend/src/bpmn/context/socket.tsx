@@ -2,7 +2,9 @@ import React, { createContext } from "react";
 import { io, Socket } from "socket.io-client";
 import { SOCKET_URL } from "../config";
 
-export const socket: Socket = io(SOCKET_URL, {});
+export const socket: Socket = io(SOCKET_URL, {
+  transports: ["websocket", "polling"],
+});
 
 export const SocketContext = createContext<Socket>(socket);
 
