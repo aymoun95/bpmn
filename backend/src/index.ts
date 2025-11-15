@@ -1,3 +1,4 @@
+import cors from 'cors';
 import express from 'express';
 import http from 'http';
 import { Server, Socket } from 'socket.io';
@@ -6,10 +7,13 @@ import { loadInitialDiagram } from './utils/loadInitialDiagram';
 import { userJoin, userLeave } from './utils/user';
 
 const app = express();
+
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: { origin: '*' },
 });
+
+app.use(cors({ origin: '*', methods: ['GET', 'POST'], credentials: true }));
 
 app.use(express.json());
 
