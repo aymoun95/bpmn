@@ -5,7 +5,7 @@ import { useSocket } from "../context/socket";
 
 type Canvas = { _container: { style: { pointerEvents: string } } };
 
-const LOCK_EVENTS = ["element.click", "element.mousedown", "create.start"];
+const LOCK_EVENTS = ["element.mousedown", "create.start"];
 
 const UNLOCK_EVENTS = ["element.mouseup", "create.end", "create.canceled"];
 
