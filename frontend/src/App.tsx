@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <div className="min-h-screen bg-gray-100 flex flex-col items-center ">
-        <Header>Create and Save Your Model Below</Header>
+        <Header>Create Your BPMN Below</Header>
         <BPMN />
       </div>
     </>
